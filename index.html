@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111c35">
+  <title>CareTrack | Facility Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="CareTrack home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M13 4h6v9h9v6h-9v9h-6v-9H4v-6h9z" fill="currentColor"/></svg></span>
+        <span class="brand-copy"><b>caretrack<span>.</span></b><small>FACILITY OS</small></span>
+      </a>
+      <div class="facility-switch"><span class="facility-icon">✦</span><span><b>North Wing</b><small>Quarantine facility</small></span><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span> Overview <span class="nav-tail">⌘1</span></button>
+        <button class="nav-item" data-view="patients"><span class="nav-icon">♙</span> Patients <span class="nav-count" id="navPatientCount">6</span></button>
+        <button class="nav-item" data-view="nurse"><span class="nav-icon">＋</span> Nurse station</button>
+        <button class="nav-item" data-view="doctor"><span class="nav-icon">⌕</span> Doctor rounds</button>
+        <button class="nav-item" data-view="admin"><span class="nav-icon">▤</span> Admissions & discharge</button>
+        <button class="nav-item" data-view="outcomes"><span class="nav-icon">◔</span> Outcomes & quality</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="support-card"><span class="support-orb">✧</span><b>Need a hand?</b><p>Review the demo workflows and operating rules.</p><button data-view="guide" class="text-button">Open quick guide <span>↗</span></button></div>
+        <div class="profile"><div class="avatar">CT</div><span><b>Care team demo</b><small>Workspace preview</small></span><button class="more-btn" aria-label="More options">···</button></div>
+      </div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M13 4h6v9h9v6h-9v9h-6v-9H4v-6h9z" fill="currentColor"/></svg></span><b>caretrack<span>.</span></b></div>
+        <div class="breadcrumbs"><span>Facility</span><span class="crumb-slash">/</span><b id="breadcrumbCurrent">Overview</b></div>
+        <div class="top-actions">
+          <span class="secure-chip"><i></i> Demo environment</span>
+          <button class="icon-btn" id="themeToggle" title="Toggle light and dark mode" aria-label="Toggle light and dark mode"><span id="themeIcon">☾</span></button>
+          <button class="icon-btn notification-btn" id="notificationBtn" title="Notifications" aria-label="Notifications">♧<i></i></button>
+          <button class="user-avatar" title="Demo user">CT</button>
+        </div>
+      </header>
+      <div class="content-wrap">
+        <section class="view active-view" id="dashboard">
+          <div class="welcome-row">
+            <div><div class="eyebrow"><span class="eyebrow-dot"></span> OPERATIONS OVERVIEW <span class="date-label" id="todayLabel"></span></div><h1>Good day, <span class="title-gradient">Care team.</span></h1><p class="page-subtitle">A clear view of patient care, daily tasks, and discharge readiness.</p></div>
+            <div class="welcome-actions"><button class="btn btn-quiet" id="exportBtn">↧ Export report</button><button class="btn btn-primary" data-open-patient>＋ Admit patient</button></div>
+          </div>
+          <div class="hero-banner"><div class="hero-content"><div class="hero-kicker"><span class="pulse"></span> FACILITY STATUS <span class="hero-divider">·</span> LIVE DEMO DATA</div><h2>Better visibility.<br><em>More time for care.</em></h2><p>Keep every daily check visible, every round coordinated, and every discharge moving.</p><button class="hero-link" data-view="nurse">Review today's care tasks <span>→</span></button></div><div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-cross">＋</div><div class="art-card art-card-one"><span class="mini-icon green">✓</span><span><b>Daily checks</b><small>Track completion</small></span><strong>↗</strong></div><div class="art-card art-card-two"><span class="mini-icon blue">⌁</span><span><b>Care overview</b><small>One shared view</small></span></div><div class="art-dot dot-one"></div><div class="art-dot dot-two"></div></div></div>
+          <div class="section-heading"><div><h2>Facility at a glance</h2><p>Key indicators across today's operations</p></div><span class="tiny-updated"><span></span> Updated from demo records</span></div>
+          <div class="metric-grid" id="metrics"></div>
+          <div class="dashboard-grid">
+            <div class="panel workflow-panel"><div class="panel-head"><div><h3>Today's care progress</h3><p>Daily completion across active patients</p></div><span class="tag tag-blue">DAILY</span></div><div id="workflow"></div><div class="panel-foot"><span class="legend-dot blue-dot"></span> Completed <span class="legend-dot pale-dot"></span> Remaining</div></div>
+            <div class="panel occupancy-panel"><div class="panel-head"><div><h3>Room occupancy</h3><p>Facility capacity overview</p></div><span class="panel-more">•••</span></div><div class="occupancy-body"><div class="donut" id="occupancyDonut"><div><strong id="occupancyPercent">8%</strong><small>occupied</small></div></div><div class="occupancy-stats"><div><span class="stat-key"><i class="legend-dot blue-dot"></i> Occupied rooms</span><b id="occupiedRooms">6</b></div><div><span class="stat-key"><i class="legend-dot pale-dot"></i> Available rooms</span><b id="availableRooms">68</b></div><div class="capacity-note"> <span>↗</span> Capacity: 74 rooms</div></div></div></div>
+          </div>
+          <div class="panel attention-panel"><div class="panel-head"><div><h3>Needs your attention</h3><p>Patients with a pending daily task or discharge review</p></div><button class="text-button" data-view="patients">View all patients <span>→</span></button></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>ROOM</th><th>LATEST TEMP.</th><th>NURSE CHECK</th><th>DOCTOR VISIT</th><th>STATUS</th><th></th></tr></thead><tbody id="attention"></tbody></table></div></div>
+          <div class="demo-note"><span>ⓘ</span><div><b>Prototype notice</b><p>All names and records are illustrative. This demo is for workflow demonstration only and must not be used for real patient care.</p></div></div>
+        </section>
+        <section class="view" id="patients">
+          <div class="page-head"><div><div class="eyebrow">PATIENT MANAGEMENT</div><h1>Patient directory</h1><p class="page-subtitle">Find a patient, review their status, and manage daily care.</p></div><button class="btn btn-primary" data-open-patient>＋ Admit patient</button></div>
+          <div class="panel"><div class="list-toolbar"><div class="searchbox"><span>⌕</span><input id="search" placeholder="Search patient name or ID…" autocomplete="off"></div><select id="filterStatus" class="select-control"><option value="all">All active patients</option><option value="attention">Needs attention</option><option value="eligible">Discharge eligible</option></select><button class="btn btn-quiet" id="clearFilters">Reset filters</button></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>ROOM</th><th>ADMITTED</th><th>LATEST TEMP.</th><th>NO-FEVER DAYS</th><th>TODAY'S TASKS</th><th>ACTIONS</th></tr></thead><tbody id="patientRows"></tbody></table></div><div class="table-bottom"><span id="patientSummary">Showing active patients</span><span>Capacity limit: 74 rooms</span></div></div>
+        </section>
+        <section class="view" id="nurse">
+          <div class="page-head"><div><div class="eyebrow">CLINICAL WORKFLOW / 01</div><h1>Nurse station</h1><p class="page-subtitle">Record routine temperatures and keep the daily care log complete.</p></div><span class="role-chip"><span>＋</span> NURSE WORKSPACE</span></div>
+          <div class="callout callout-info"><span class="callout-icon">ⓘ</span><div><b>Daily recording rule</b><p>Record one routine temperature per patient per day. Repeat measurements stay separate and need a reason, preserving the original reading.</p></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Temperature checklist</h3><p>Prioritize patients with no routine reading today</p></div><span class="tag tag-amber" id="nursePendingTag">PENDING</span></div><div class="list-toolbar"><div class="searchbox"><span>⌕</span><input id="nurseSearch" placeholder="Find a patient…"></div><select id="nurseFilter" class="select-control"><option value="pending">Routine reading pending</option><option value="all">All active patients</option></select></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>ROOM</th><th>LATEST READING</th><th>TODAY</th><th>ACTION</th></tr></thead><tbody id="nurseRows"></tbody></table></div></div>
+        </section>
+        <section class="view" id="doctor">
+          <div class="page-head"><div><div class="eyebrow">CLINICAL WORKFLOW / 02</div><h1>Doctor rounds</h1><p class="page-subtitle">Review today's recorded temperature before completing routine rounds.</p></div><span class="role-chip"><span>⌕</span> DOCTOR WORKSPACE</span></div>
+          <div class="callout callout-warning"><span class="callout-icon">⚠</span><div><b>Coordinate before rounds</b><p>Routine visit completion requires today's routine temperature record. This software check must never delay urgent clinical care.</p></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Daily doctor checklist</h3><p>Track patients who still need a doctor visit</p></div><span class="tag tag-blue">ROUND STATUS</span></div><div class="list-toolbar"><div class="searchbox"><span>⌕</span><input id="doctorSearch" placeholder="Find a patient…"></div><select id="doctorFilter" class="select-control"><option value="pending">Doctor visit pending</option><option value="all">All active patients</option></select></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>ROOM</th><th>TODAY'S TEMP.</th><th>NURSE CHECK</th><th>DOCTOR VISIT</th><th>ACTION</th></tr></thead><tbody id="doctorRows"></tbody></table></div></div>
+        </section>
+        <section class="view" id="admin">
+          <div class="page-head"><div><div class="eyebrow">FACILITY OPERATIONS / 03</div><h1>Admissions & discharge</h1><p class="page-subtitle">Manage bed availability and move eligible discharges through the handoff.</p></div><button class="btn btn-primary" data-open-patient>＋ Admit patient</button></div>
+          <div class="metric-grid metric-grid-three" id="adminMetrics"></div>
+          <div class="callout callout-info"><span class="callout-icon">ⓘ</span><div><b>Discharge eligibility is a flag, not a clinical decision</b><p>The prototype checks the three-full-day no-fever criterion from documented readings. Follow local clinical and administrative sign-off before an actual discharge.</p></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Discharge review queue</h3><p>Patients meeting the documented no-fever criterion</p></div><span class="tag tag-green">ELIGIBILITY QUEUE</span></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>ROOM</th><th>NO-FEVER DAYS</th><th>DOCTOR VISIT</th><th>DISCHARGE ACTION</th></tr></thead><tbody id="dischargeRows"></tbody></table></div></div>
+        </section>
+        <section class="view" id="outcomes">
+          <div class="page-head"><div><div class="eyebrow">QUALITY & SAFETY / 04</div><h1>Outcomes & quality</h1><p class="page-subtitle">Monitor final outcomes and compare mortality with the facility benchmark.</p></div><button class="btn btn-primary" id="openOutcomeBtn">＋ Record outcome</button></div>
+          <div class="metric-grid" id="outcomeMetrics"></div>
+          <div class="dashboard-grid outcomes-grid"><div class="panel"><div class="panel-head"><div><h3>Outcome distribution</h3><p>Final outcomes in the demo dataset</p></div><span class="tag tag-blue">ALL TIME</span></div><div id="outcomeChart"></div></div><div class="panel benchmark-panel"><div class="panel-head"><div><h3>Mortality benchmark</h3><p>Expected benchmark from the assessment</p></div></div><div class="benchmark-value"><strong id="mortalityValue">25.0%</strong><span class="benchmark-label" id="benchmarkStatus">Above benchmark</span></div><div class="benchmark-track"><span id="benchmarkTrack"></span><i></i></div><div class="benchmark-legend"><span>0%</span><span>15% benchmark</span><span>100%</span></div><div class="callout callout-warning compact" id="benchmarkNotice"></div><p class="micro-copy">Mortality = recorded deaths ÷ all recorded final outcomes. Always review the denominator, period, sample size, and data quality.</p></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Recorded outcomes</h3><p>Auditable list of final outcome entries in this demo</p></div></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>OUTCOME</th><th>DATE</th><th>NOTES</th></tr></thead><tbody id="outcomeRows"></tbody></table></div></div>
+        </section>
+        <section class="view" id="guide">
+          <div class="page-head"><div><div class="eyebrow">GETTING STARTED</div><h1>Quick guide</h1><p class="page-subtitle">A short walkthrough of the prototype's key user journeys.</p></div></div>
+          <div class="guide-grid"><article class="guide-card"><span class="guide-number">01</span><div class="guide-icon">＋</div><h3>Nurse records temperature</h3><p>Open Nurse station, choose a patient, enter the temperature and save. Repeat readings require a reason and are not counted as the routine daily check.</p><button class="text-button" data-view="nurse">Go to nurse station →</button></article><article class="guide-card"><span class="guide-number">02</span><div class="guide-icon">⌕</div><h3>Doctor completes rounds</h3><p>Open Doctor rounds. A routine visit can be completed after today's routine temperature is recorded.</p><button class="text-button" data-view="doctor">Go to doctor rounds →</button></article><article class="guide-card"><span class="guide-number">03</span><div class="guide-icon">▤</div><h3>Admin manages discharge</h3><p>Review the no-fever day count, verify local approvals, then finalize discharge in the admin workflow.</p><button class="text-button" data-view="admin">Open admin queue →</button></article><article class="guide-card"><span class="guide-number">04</span><div class="guide-icon">◔</div><h3>Monitor outcomes</h3><p>Record a final outcome and review the mortality rate against the 15% benchmark in the assessment brief.</p><button class="text-button" data-view="outcomes">View quality metrics →</button></article></div>
+          <div class="callout callout-warning"><span class="callout-icon">⚠</span><div><b>Prototype limitations</b><p>Data is illustrative and browser-local. The app has no real authentication, server persistence, clinical decision support, or production security controls.</p></div></div>
+        </section>
+        <footer class="app-footer"><span>CareTrack <b>·</b> TPM assessment prototype</span><span><i class="footer-dot"></i> Demo data only <span class="footer-sep">·</span> Not for clinical use</span></footer>
+      </div>
+    </main>
+  </div>
+  <div id="modalRoot"></div><div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
